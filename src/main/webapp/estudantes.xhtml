@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<body>
+  <ui:composition template="facelets/facelets-main.xhtml">
+    <ui:define name="main">
+      <div class="h-100 d-flex justify-content-center align-items-center bg-secondary text-light">
+        <h:form id="form-table" class="w-50 text-dark">
+          <h:dataTable
+              styleClass="table table-striped table-bordered table-dark"
+              value="#{estudantesBean.alunos}"
+              var="aluno">
+
+            <h:column>
+              <f:facet name="header">#</f:facet>
+              #{aluno.id}
+            </h:column>
+
+            <h:column>
+              <f:facet name="header">Nome</f:facet>
+              #{aluno.nome}
+            </h:column>
+
+            <h:column>
+              <f:facet name="header">Data Nascimento</f:facet>
+              #{aluno.dataNascimento}
+            </h:column>
+
+            <h:column >
+              <f:facet name="header">Ações</f:facet>
+              <h:commandButton action="#{estudantesBean.excluirAluno(aluno)}" styleClass="btn btn-secondary" value="Excluir" />
+            </h:column>
+
+            <!-- Alteração Modal -->
+
+
+          </h:dataTable>
+
+          <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#cadastroModal">
+            Cadastrar novo aluno
+          </button>
+
+          <!-- Cadastro Modal -->
+          <div class="modal fade" id="cadastroModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="bg-dark text-light modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Cadastrar aluno</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"></span>
+                  </button>
+                </div>
+
+                <div class="bg-dark text-light modal-body">
+                  <h:form id="form-container" class="bg-light text-dark d-flex align-items-center flex-column w-70 p-5 border border-primary">
+                    <div class="mb-3 w-100">
+                      <h:outputLabel for="nome" value="Nome" styleClass="form-label" />
+                      <h:inputText value="#{estudantesBean.aluno.nome}" styleClass="form-control" id="nome" placeholder="John Doe" />
+                    </div>
+
+                    <div class="mb-4 w-100">
+                      <h:outputLabel for="dataNasc" value="Data Nascimento" styleClass="form-label" />
+                      <h:inputText value="#{estudantesBean.aluno.dataNascimento}" styleClass="form-control" id="dataNasc" />
+                    </div>
+
+                    <div class="mb-4 w-100 d-flex justify-content-end">
+                      <button type="button" class="mx-2 btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                      <h:commandButton action="#{estudantesBean.cadastrarAluno}" styleClass="btn btn-primary" value="Salvar"/>
+                    </div>
+                  </h:form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </h:form>
+      </div>
+    </ui:define>
+  </ui:composition>
+</body>
+
+</html>
