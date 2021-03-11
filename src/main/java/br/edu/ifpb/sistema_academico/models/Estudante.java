@@ -1,23 +1,37 @@
 package br.edu.ifpb.sistema_academico.models;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Objects;
 
-public class Aluno {
+@Entity
+public class Estudante {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
+
   private String nome;
-  private String dataNascimento;
+
+  @Column(name = "data_nasc")
+  @Temporal(TemporalType.DATE)
+  private Date dataNascimento;
+
   private Integer faltas;
   private BigDecimal nota1;
   private BigDecimal nota2;
   private BigDecimal nota3;
+
+  @Column(name = "nota_final")
   private BigDecimal notaFinal;
+
+  @Transient
   private SituacaoEnum situacao;
 
-  public Aluno() {}
+  public Estudante() {}
 
-  public Aluno(Integer id, String nome, String dataNascimento) {
-    this.id = id; // ID não é obrigatório. Isso foi apenas para testes. Refatorar
+  public Estudante(String nome, Date dataNascimento) {
     this.nome = nome;
     this.dataNascimento = dataNascimento;
   }
@@ -38,11 +52,11 @@ public class Aluno {
     this.nome = nome;
   }
 
-  public String getDataNascimento() {
+  public Date getDataNascimento() {
     return dataNascimento;
   }
 
-  public void setDataNascimento(String dataNascimento) {
+  public void setDataNascimento(Date dataNascimento) {
     this.dataNascimento = dataNascimento;
   }
 
@@ -98,8 +112,8 @@ public class Aluno {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    Aluno aluno = (Aluno) o;
-    return getId().equals(aluno.getId());
+    Estudante estudante = (Estudante) o;
+    return getId().equals(estudante.getId());
   }
 
   @Override
