@@ -11,27 +11,29 @@
         <h:form id="form-table" class="w-50 text-dark">
           <h:dataTable
               styleClass="table table-striped table-bordered table-dark"
-              value="#{estudantesBean.alunos}"
-              var="aluno">
+              value="#{estudantesBean.estudantes}"
+              var="estudante">
 
             <h:column>
               <f:facet name="header">#</f:facet>
-              #{aluno.id}
+              #{estudante.id}
             </h:column>
 
             <h:column>
               <f:facet name="header">Nome</f:facet>
-              #{aluno.nome}
+              #{estudante.nome}
             </h:column>
 
             <h:column>
               <f:facet name="header">Data Nascimento</f:facet>
-              #{aluno.dataNascimento}
+              <h:outputText value="#{estudante.dataNascimento}" >
+                <f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy" />
+              </h:outputText>
             </h:column>
 
             <h:column >
               <f:facet name="header">Ações</f:facet>
-              <h:commandButton action="#{estudantesBean.excluirAluno(aluno)}" styleClass="btn btn-secondary" value="Excluir" />
+              <h:commandButton action="#{estudantesBean.excluirAluno(estudante)}" styleClass="btn btn-secondary" value="Excluir" />
             </h:column>
 
             <!-- Alteração Modal -->
@@ -40,7 +42,7 @@
           </h:dataTable>
 
           <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#cadastroModal">
-            Cadastrar novo aluno
+            Cadastrar novo estudante
           </button>
 
           <!-- Cadastro Modal -->
@@ -48,7 +50,7 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="bg-dark text-light modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Cadastrar aluno</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">Cadastrar estudante</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"></span>
                   </button>
@@ -58,12 +60,15 @@
                   <h:form id="form-container" class="bg-light text-dark d-flex align-items-center flex-column w-70 p-5 border border-primary">
                     <div class="mb-3 w-100">
                       <h:outputLabel for="nome" value="Nome" styleClass="form-label" />
-                      <h:inputText value="#{estudantesBean.aluno.nome}" styleClass="form-control" id="nome" placeholder="John Doe" />
+                      <h:inputText value="#{estudantesBean.estudante.nome}" styleClass="form-control" id="nome" placeholder="John Doe" />
                     </div>
 
                     <div class="mb-4 w-100">
                       <h:outputLabel for="dataNasc" value="Data Nascimento" styleClass="form-label" />
-                      <h:inputText value="#{estudantesBean.aluno.dataNascimento}" styleClass="form-control" id="dataNasc" />
+                      <h:inputText value="#{estudantesBean.estudante.dataNascimento}"  styleClass="form-control" id="dataNasc">
+                        <f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy" />
+                        <f:passThroughAttribute name="placeholder" value="01/01/1970" />
+                      </h:inputText>
                     </div>
 
                     <div class="mb-4 w-100 d-flex justify-content-end">
