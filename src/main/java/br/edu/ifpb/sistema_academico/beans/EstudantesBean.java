@@ -1,59 +1,58 @@
 package br.edu.ifpb.sistema_academico.beans;
 
-import br.edu.ifpb.sistema_academico.dao.AlunoDAO;
-import br.edu.ifpb.sistema_academico.models.Aluno;
+import br.edu.ifpb.sistema_academico.models.Estudante;
+import br.edu.ifpb.sistema_academico.services.EstudanteService;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.toList;
 
 @Named
 @ViewScoped
 public class EstudantesBean implements Serializable {
-  private List<Aluno> alunos;
-  private AlunoDAO alunoDAO;
-  private Aluno aluno = new Aluno();
+
+  @Inject
+  private EstudanteService service;
+
+  private Estudante estudante;
+  private List<Estudante> estudantes;
 
   @PostConstruct
   public void init() {
-    this.alunoDAO = new AlunoDAO();
-    this.alunos = alunoDAO.findAll();
+    this.estudantes = service.todosEstudantes();
+    this.estudante = new Estudante();
   }
 
   public String cadastrarAluno() {
-    alunoDAO.insert(this.aluno);
-    this.alunos = alunoDAO.findAll();
+    service.cadastrar(this.estudante);
+    this.estudantes = service.todosEstudantes();
 
-    this.aluno = new Aluno();
+    this.estudante = new Estudante();
     return null;
   }
 
-  public String excluirAluno(Aluno aluno) {
-    alunoDAO.delete(aluno);
-    this.alunos = alunoDAO.findAll();
+  public String excluirAluno(Estudante estudante) {
+    service.excluir(estudante);
+    this.estudantes = service.todosEstudantes();
     return null;
   }
 
-  public Aluno getAluno() {
-    return aluno;
+  public Estudante getEstudante() {
+    return estudante;
   }
 
-  public void setAluno(Aluno aluno) {
-    this.aluno = aluno;
+  public void setEstudante(Estudante estudante) {
+    this.estudante = estudante;
   }
 
-  public List<Aluno> getAlunos() {
-    return alunos;
+  public List<Estudante> getEstudantes() {
+    return estudantes;
   }
 
-  public void setAlunos(List<Aluno> alunos) {
-    this.alunos = alunos;
+  public void setEstudantes(List<Estudante> estudantes) {
+    this.estudantes = estudantes;
   }
 }
