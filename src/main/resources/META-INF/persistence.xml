@@ -3,7 +3,17 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2">
-    <persistence-unit name="default">
+    <persistence-unit name="siac-postgresql">
+        <description>Hibernate PostgreSQL Dialect</description>
+        <non-jta-data-source>java:/siac-ds</non-jta-data-source>
 
+        <class>br.edu.ifpb.sistema_academico.models.Estudante</class>
+
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="validate"/>
+        </properties>
     </persistence-unit>
 </persistence>
