@@ -41,6 +41,8 @@ public abstract class DAO<T, PK extends Serializable> implements DAOInterface<T,
   }
 
   public void delete(T entity) {
-    this.entityManager.remove(entity);
+    this.entityManager.remove(
+        this.entityManager.contains(entity) ? entity : this.entityManager.merge(entity)
+    );
   }
 }

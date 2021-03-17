@@ -4,6 +4,8 @@ import br.edu.ifpb.sistema_academico.models.Estudante;
 import br.edu.ifpb.sistema_academico.services.EstudanteService;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -12,26 +14,16 @@ import java.util.List;
 
 @Named
 @ViewScoped
-public class EstudantesBean implements Serializable {
+public class ListagemEstudantesBean implements Serializable {
 
   @Inject
   private EstudanteService service;
 
-  private Estudante estudante;
   private List<Estudante> estudantes;
 
   @PostConstruct
   public void init() {
     this.estudantes = service.todosEstudantes();
-    this.estudante = new Estudante();
-  }
-
-  public String cadastrarAluno() {
-    service.cadastrar(this.estudante);
-    this.estudantes = service.todosEstudantes();
-
-    this.estudante = new Estudante();
-    return null;
   }
 
   public String excluirAluno(Estudante estudante) {
@@ -40,12 +32,14 @@ public class EstudantesBean implements Serializable {
     return null;
   }
 
-  public Estudante getEstudante() {
-    return estudante;
+  public String carregarAluno(Estudante estudante) {
+    this.putFlash("estudante", estudante);
+    return "form-estudante?faces-redirect=true";
   }
 
-  public void setEstudante(Estudante estudante) {
-    this.estudante = estudante;
+  private void putFlash(String nome, Object valor) {
+    Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
+    flash.put(nome, valor);
   }
 
   public List<Estudante> getEstudantes() {

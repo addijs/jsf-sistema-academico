@@ -1,12 +1,13 @@
 package br.edu.ifpb.sistema_academico.models;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
 @Entity
-public class Estudante {
+public class Estudante implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

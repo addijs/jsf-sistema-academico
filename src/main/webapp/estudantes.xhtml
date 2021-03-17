@@ -7,15 +7,17 @@
 <body>
   <ui:composition template="facelets/facelets-main.xhtml">
     <ui:define name="main">
-      <div class="h-100 d-flex justify-content-center align-items-center bg-secondary text-light">
+      <div class="h-100 d-flex flex-column justify-content-center align-items-center bg-secondary text-light">
+        <h:messages />
+
         <h:form id="form-table" class="w-50 text-dark">
           <h:dataTable
               styleClass="table table-striped table-bordered table-dark"
-              value="#{estudantesBean.estudantes}"
+              value="#{listagemEstudantesBean.estudantes}"
               var="estudante">
 
             <h:column>
-              <f:facet name="header">#</f:facet>
+              <f:facet name="header">ID</f:facet>
               #{estudante.id}
             </h:column>
 
@@ -31,55 +33,25 @@
               </h:outputText>
             </h:column>
 
-            <h:column >
+            <h:column footerClass="d-flex justify-content-around">
               <f:facet name="header">Ações</f:facet>
-              <h:commandButton action="#{estudantesBean.excluirAluno(estudante)}" styleClass="btn btn-secondary" value="Excluir" />
+
+              <div class="d-flex justify-content-around">
+                <h:commandButton
+                    action="#{listagemEstudantesBean.excluirAluno(estudante)}"
+                    styleClass="btn btn-secondary" value="Excluir" />
+
+                <h:commandButton
+                    action="#{listagemEstudantesBean.carregarAluno(estudante)}"
+                    styleClass="btn btn-primary" value="Alterar" />
+              </div>
             </h:column>
-
-            <!-- Alteração Modal -->
-
-
           </h:dataTable>
 
-          <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#cadastroModal">
-            Cadastrar novo estudante
-          </button>
-
-          <!-- Cadastro Modal -->
-          <div class="modal fade" id="cadastroModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="bg-dark text-light modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Cadastrar estudante</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"></span>
-                  </button>
-                </div>
-
-                <div class="bg-dark text-light modal-body">
-                  <h:form id="form-container" class="bg-light text-dark d-flex align-items-center flex-column w-70 p-5 border border-primary">
-                    <div class="mb-3 w-100">
-                      <h:outputLabel for="nome" value="Nome" styleClass="form-label" />
-                      <h:inputText value="#{estudantesBean.estudante.nome}" styleClass="form-control" id="nome" placeholder="John Doe" />
-                    </div>
-
-                    <div class="mb-4 w-100">
-                      <h:outputLabel for="dataNasc" value="Data Nascimento" styleClass="form-label" />
-                      <h:inputText value="#{estudantesBean.estudante.dataNascimento}"  styleClass="form-control" id="dataNasc">
-                        <f:convertDateTime locale="pt_BR" pattern="dd/MM/yyyy" />
-                        <f:passThroughAttribute name="placeholder" value="01/01/1970" />
-                      </h:inputText>
-                    </div>
-
-                    <div class="mb-4 w-100 d-flex justify-content-end">
-                      <button type="button" class="mx-2 btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                      <h:commandButton action="#{estudantesBean.cadastrarAluno}" styleClass="btn btn-primary" value="Salvar"/>
-                    </div>
-                  </h:form>
-                </div>
-              </div>
-            </div>
-          </div>
+          <h:commandButton
+              action="form-estudante?faces-redirect=true"
+              styleClass="btn btn-block btn-primary"
+              value="Cadastrar novo estudante" />
         </h:form>
       </div>
     </ui:define>
