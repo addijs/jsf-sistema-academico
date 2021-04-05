@@ -23,6 +23,11 @@ public class EstudanteService implements Serializable {
     estudanteDAO.delete(estudante);
   }
 
+  @Transactional
+  public void alterar(Estudante estudante) {
+    estudanteDAO.update(estudante);
+  }
+
   public List<Estudante> todosEstudantes() {
     return estudanteDAO.findAll();
   }
