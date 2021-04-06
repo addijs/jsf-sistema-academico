@@ -32,8 +32,15 @@ public class FormNotasBean implements Serializable {
 		return "notas?faces-redirect=true";
 	}
 	
-	public boolean liberaCampoFinal(Estudante estudante) {
+	public boolean travaCampoFinal(Estudante estudante) {
 		if(estudante.getNota1() != null && estudante.getNota2() != null && estudante.getNota3() != null) {
+			
+			if(estudante.getFaltas() != null) {
+				if(estudante.getFaltas() > 25) {
+					return true;
+				}
+			}
+			
 			return !((
 					estudante.getNota1().doubleValue() + 
 					estudante.getNota2().doubleValue() + 

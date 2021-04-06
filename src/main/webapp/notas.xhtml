@@ -79,7 +79,7 @@
 			  	style="width: 5em;"
                 value="#{estudante.notaFinal}"
                 converterMessage="Campo nota final inválido!"
-                readonly="#{formNotasBean.liberaCampoFinal(estudante)}"
+                disabled="#{formNotasBean.travaCampoFinal(estudante)}"
                 >
             </h:inputText>
           	</h:column>
