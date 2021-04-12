@@ -8,12 +8,14 @@
         <non-jta-data-source>java:/siac-ds</non-jta-data-source>
 
         <class>br.edu.ifpb.sistema_academico.models.Estudante</class>
+        <class>br.edu.ifpb.sistema_academico.models.User</class>
 
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="validate"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="javax.persistence.sql-load-script-source" value="META-INF/data.sql"/>
         </properties>
     </persistence-unit>
 </persistence>
