@@ -30,6 +30,9 @@ public class Estudante implements Serializable {
   @Transient
   private SituacaoEnum situacao;
 
+  @Transient
+  private BigDecimal media;
+
   public Estudante() {}
 
   public Estudante(String nome, Date dataNascimento) {
@@ -107,6 +110,14 @@ public class Estudante implements Serializable {
 
   public void setSituacao(SituacaoEnum situacao) {
     this.situacao = situacao;
+  }
+
+  public BigDecimal getMedia() {
+    return media;
+  }
+
+  public void setMedia(BigDecimal media) {
+    this.media = media;
   }
 
   @Override
